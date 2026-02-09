@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharma - Your Daily Choice</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+    </style>
+ </head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <div class="logo">Pharma</div>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="index.html"class="active" >HOME</a></li>
+                    <li><a href="about_us.html">ABOUT</a></li>
+                    <li><a href="products.html"  >PRODUCTS</a></li>
+                    <li><a href="contact.html">CONTACT</a></li>
+                </ul>
+            </nav>
+            <div class="nav-icons">
+             
+                <div class="cart-icon-container" onclick="toggleCart()">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+                <i class="fas fa-bars menu-toggle-icon" onclick="toggleMobileMenu()"></i>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="container hero-content">
+            <h1>WELCOME TO PHARMA</h1>
+            <p>Your trusted source for quality medicines and health products. We deliver convenience right to your doorstep.</p>
+            <div class="hero-buttons">
+                <a href="#popular-products" class="btn">Shop Now</a>
+                <a href="about_us.html" class="btn outline">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="info-boxes container">
+        <div class="info-box" style="background-color: #B2EBF2;">
+            <h3>Fast Delivery</h3>
+            <p>Get your medicines delivered quickly and safely.</p>
+        </div>
+        <div class="info-box" style="background-color: #DCEDC8;">
+            <h3>Quality Products</h3>
+            <p>We ensure all products are genuine and of the highest quality.</p>
+        </div>
+        <div class="info-box" style="background-color: #FFECB3;">
+            <h3>24/7 Support</h3>
+            <p>Our team is available round the clock for your queries.</p>
+        </div>
+    </section>
+
+    <section class="popular-products" id="popular-products">
+        <h2 class="section-title">POPULAR PRODUCTS</h2>
+        <div class="medicine-list" id="popularMedicineList">
+            </div>
+    </section>
+
+    <section class="new-products">
+        <h2 class="section-title">NEW PRODUCTS</h2>
+        <div class="medicine-list" id="newMedicineList">
+            </div>
+    </section>
+
+    <section class="testimonials-section">
+        <h2 class="section-title">TESTIMONIALS</h2>
+        <div class="container testimonial-grid">
+            <div class="testimonial-card">
+                <div class="user-info">
+                    <img src="https://via.placeholder.com/60/FFD700/FFFFFF?text=J" alt="User 1">
+                    <span class="user-name">John Doe</span>
+                </div>
+                <p>"Pharma has made buying medicines so easy and convenient. Their delivery is super fast!"</p>
+            </div>
+            <div class="testimonial-card">
+                <div class="user-info">
+                    <img src="https://via.placeholder.com/60/ADD8E6/FFFFFF?text=A" alt="User 2">
+                    <span class="user-name">Alice Smith</span>
+                </div>
+                <p>"Reliable and authentic products. I highly recommend Pharma for all your health needs."</p>
+            </div>
+            <div class="testimonial-card">
+                <div class="user-info">
+                    <img src="https://via.placeholder.com/60/90EE90/FFFFFF?text=R" alt="User 3">
+                    <span class="user-name">Rahul Sharma</span>
+                </div>
+                <p>"Excellent customer service and a wide range of products. Truly a lifesaver during emergencies."</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="promo-section">
+        <div class="container promo-grid">
+            <div class="promo-block left">
+                <h3>PHARMA PRODUCTS</h3>
+                <p>Explore our extensive range of high-quality pharmaceutical products.</p>
+                <a href="#" class="btn">View All Products</a>
+            </div>
+            <div class="promo-block right">
+                <h3>RATED BY EXPERTS</h3>
+                <p>Our products are trusted and recommended by healthcare professionals.</p>
+                <a href="#" class="btn">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <h4>About Us</h4>
+                <p>Pharma is dedicated to providing accessible and affordable healthcare solutions.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Sitemap</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Info</h4>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Health St, Wellness City</p>
+                <p><i class="fas fa-phone"></i> +91 12345 67890</p>
+                <p><i class="fas fa-envelope"></i> info@pharma.com</p>
+            </div>
+            <div class="footer-col">
+                <h4>Follow Us</h4>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2025 Pharma. All rights reserved.
+        </div>
+    </footer>
+
+<div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+        <h3>Your Cart</h3>
+        <i class="fas fa-times close-cart" onclick="toggleCart()"></i>
+    </div>
+    <div class="cart-items" id="cartItems">
+        <p class="empty-cart-message" id="emptyCartMessage">Your cart is empty.</p>
+    </div>
+
+    <div class="cart-summary">
+        Total: <span id="cartTotal">₹0.00</span>
+    </div>
+    <button class="cart-checkout-btn" onclick="checkoutCart()">Proceed to WhatsApp</button>
+</div>
+    
+
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay" onclick="toggleMobileMenu()"></div>
+    <div class="mobile-menu-sidebar" id="mobileMenuSidebar">
+        <div class="mobile-menu-header">
+            <h3>Menu</h3>
+            <i class="fas fa-times close-mobile-menu" onclick="toggleMobileMenu()"></i>
+        </div>
+        <ul>
+              <li><a href="index.html"class="active" >HOME</a></li>
+                    <li><a href="about_us.html">ABOUT</a></li>
+                    <li><a href="products.html"  >PRODUCTS</a></li>
+                    <li><a href="contact.html">CONTACT</a></li>
+        </ul>
+    </div>
+
+ <script  src="script.js"></script>
+
+</body>
+</html>

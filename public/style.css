@@ -1,0 +1,1122 @@
+/* Universal Styles & Body */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Color Variables (for consistency) */
+:root {
+    --primary-color: #007BFF; /* A shade of blue for primary actions */
+    --secondary-color: #6C757D; /* Grey for secondary elements */
+    --accent-color: #28A745; /* Green for success/add to cart */
+    --danger-color: #DC3545; /* Red for removals/errors */
+    --text-dark: #343A40;
+    --text-light: #F8F9FA;
+    --bg-light: #F8F9FA;
+    --bg-dark: #343A40;
+    --border-color: #DEE2E6;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.6;
+    color: var(--text-dark);
+    background-color: var(--bg-light);
+    overflow-x: hidden; /* Prevent horizontal scroll due to sidebar */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+ul {
+    list-style: none;
+}
+
+/* Header Section */
+.header {
+    background-color: #fff;
+    padding: 15px 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.nav-menu ul {
+    display: flex;
+}
+
+.nav-menu ul li {
+    margin-left: 30px;
+}
+
+.nav-menu ul li a {
+    color: var(--text-dark);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-menu ul li a:hover,
+.nav-menu ul li a.active {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.nav-icons {
+    display: flex;
+    align-items: center;
+}
+
+.nav-icons i {
+    font-size: 1.2rem;
+    margin-left: 20px;
+    cursor: pointer;
+    color: var(--secondary-color);
+    transition: color 0.3s ease;
+}
+
+.nav-icons i:hover {
+    color: var(--primary-color);
+}
+
+.cart-icon-container {
+    position: relative;
+    cursor: pointer;
+    display: flex; /* To align icon and count */
+    align-items: center;
+}
+
+.cart-count {
+    background-color: var(--danger-color);
+    color: white;
+    font-size: 0.75rem;
+    border-radius: 50%;
+    padding: 2px 6px;
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    min-width: 20px; /* Ensure circular shape for single/double digits */
+    text-align: center;
+}
+
+.menu-toggle-icon {
+    display: none; /* Hidden by default, shown on mobile via media query */
+}
+
+/* Hero Section */
+.hero-section {
+    background: url('image/hero_1.jpg') no-repeat center center/cover;
+    color: white;
+    text-align: center;
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden; /* For info boxes overlap */
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1; /* Ensure content is above any background effects */
+}
+
+.hero-section h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-buttons .btn {
+    display: inline-block;
+    background-color: #fff;
+    color: var(--primary-color);
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-weight: 600;
+    margin: 0 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.hero-buttons .btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.hero-buttons .btn.outline {
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+}
+
+.hero-buttons .btn.outline:hover {
+    background-color: white;
+    color: var(--primary-color);
+}
+
+/* Info Boxes Section (Overlap with Hero) */
+.info-boxes {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    margin-top: -80px; /* Overlap with hero section */
+    position: relative;
+    z-index: 50; /* Above hero content */
+    padding-bottom: 50px; /* Spacing below info boxes */
+}
+
+.info-box {
+    flex: 1;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    text-align: center;
+    min-width: 280px; /* Ensure boxes don't get too small */
+}
+
+.info-box h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.info-box p {
+    color: var(--secondary-color);
+}
+
+/* Section Titles */
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 50px;
+    margin-top: 80px;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: var(--primary-color);
+    margin: 15px auto 0;
+    border-radius: 2px;
+}
+
+/* Product List Sections (Popular & New) */
+.medicine-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 0 20px 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.medicine-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    overflow: hidden;
+    text-align: center;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative; /* For tags */
+}
+
+.medicine-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.medicine-tag {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    z-index: 10;
+}
+
+.medicine-tag.new {
+    background-color: var(--accent-color);
+}
+
+.medicine-tag.sale {
+    background-color: var(--danger-color);
+}
+.medicine-tag.BESTSELLER {
+    background-color: var(--accent-color);
+}
+
+.medicine-img {
+    max-width: 100%;
+    height: 180px; /* Fixed height for consistency */
+    object-fit: contain; /* Ensure image fits without cropping */
+    margin-bottom: 15px;
+    mix-blend-mode: multiply; /* Helps blend white backgrounds in images */
+}
+
+.medicine-name {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+    flex-grow: 1; /* Allows names to take available space */
+}
+
+.medicine-price {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+/* --- QUANTITY CONTROLS (Common Styles for both Product Cards and Cart Items) --- */
+.quantity-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    gap: 10px; /* Space between label and controls */
+}
+
+.quantity-container label {
+    font-size: 0.95rem;
+    color: var(--secondary-color);
+    white-space: nowrap; /* Prevent label from wrapping */
+}
+
+/* Base style for all quantity control divs */
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    overflow: hidden; /* Ensures borders are contained */
+    background-color: #fff; /* Ensure white background for the whole control */
+    height: 38px; /* Set a consistent height for the entire control */
+}
+
+/* Styles for buttons within any quantity control */
+.quantity-controls button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+    -webkit-user-select: none; /* Prevent text selection */
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    flex-shrink: 0; /* Prevent buttons from shrinking */
+    height: 100%; /* Make buttons fill the height of the parent .quantity-controls */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quantity-controls button:hover {
+    background-color: #0056b3; /* Darker primary */
+}
+
+/* Styles specifically for the input on product cards */
+.product-card-quantity-controls input[type="number"] {
+    width: 60px;
+    padding: 8px 0; /* Adjust padding to fit with buttons */
+    border: none; /* Remove individual input border as parent has it */
+    text-align: center;
+    font-size: 1rem;
+    color: var(--text-dark);
+    appearance: textfield; /* Standard property for compatibility */
+    -moz-appearance: textfield; /* Hide arrows for Firefox */
+    outline: none; /* Remove outline on focus */
+    height: 100%; /* Make input fill the height of the parent .quantity-controls */
+}
+
+/* Hide arrows for Chrome, Safari, Edge (for input type number) */
+.product-card-quantity-controls input[type="number"]::-webkit-outer-spin-button,
+.product-card-quantity-controls input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Action Buttons (Add to Cart / Buy Now) */
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.action-buttons button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    white-space: nowrap; /* Prevent text wrapping within button */
+    flex: 1; /* Allow buttons to expand evenly */
+}
+
+.action-buttons .add-to-cart {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.action-buttons .add-to-cart:hover {
+    background-color: #218838; /* Darker green */
+}
+
+.action-buttons button:last-child { /* Targets the Buy Now button */
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.action-buttons button:last-child:hover {
+    background-color: #0056b3; /* Darker blue */
+}
+
+/* Testimonials Section */
+.testimonials-section {
+    background-color: #E6F3FF; /* Light blue background */
+    padding: 80px 0;
+}
+
+.testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.testimonial-card {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.testimonial-card .user-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.testimonial-card .user-info img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+    border: 3px solid var(--primary-color);
+}
+
+.testimonial-card .user-info .user-name {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--text-dark);
+}
+
+.testimonial-card p {
+    font-style: italic;
+    color: var(--secondary-color);
+    line-height: 1.8;
+}
+
+/* Promo Section (Pharma Products & Rated by Experts) */
+.promo-section {
+    padding: 80px 0;
+    background-color: var(--bg-light);
+}
+
+.promo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 40px;
+}
+
+.promo-block {
+    background-color: #fff;
+    padding: 50px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    text-align: center;
+}
+
+.promo-block h3 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+.promo-block p {
+    font-size: 1.1rem;
+    color: var(--secondary-color);
+    margin-bottom: 30px;
+}
+
+.promo-block .btn {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.promo-block .btn:hover {
+    background-color: #0056b3;
+}
+
+/* Footer Section */
+.footer {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    padding: 60px 0 20px;
+    font-size: 0.95rem;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.footer-col h4 {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    color: white;
+    position: relative;
+}
+
+.footer-col h4::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 3px;
+    background-color: var(--primary-color);
+    margin-top: 10px;
+    border-radius: 2px;
+}
+
+.footer-col p {
+    color: #CED4DA;
+    margin-bottom: 10px;
+}
+
+.footer-col p i {
+    margin-right: 10px;
+    color: var(--primary-color);
+}
+
+.footer-col ul li {
+    margin-bottom: 8px;
+}
+
+.footer-col ul li a {
+    color: #CED4DA;
+    transition: color 0.3s ease;
+}
+
+.footer-col ul li a:hover {
+    color: var(--primary-color);
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+}
+
+.social-icons a {
+    color: white;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: var(--primary-color);
+}
+
+.footer-bottom {
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 20px;
+    color: #ADB5BD;
+}
+
+/* --- Cart Sidebar --- */
+.cart-sidebar {
+    position: fixed;
+    top: 0;
+    right: -350px; /* Hidden by default */
+    width: 350px;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    transition: right 0.4s ease-in-out;
+    z-index: 2000;
+    display: flex; /* Use flexbox for main layout of sidebar */
+    flex-direction: column; /* Stack header, items, summary, checkout vertically */
+}
+
+.cart-sidebar.open {
+    right: 0;
+}
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.cart-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+.close-cart {
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--secondary-color);
+    transition: color 0.3s ease;
+}
+
+.close-cart:hover {
+    color: var(--danger-color);
+}
+
+.cart-items {
+    flex-grow: 1; /* Allows cart items to take available space */
+    padding: 20px;
+    overflow-y: auto; /* Enable scrolling for many items */
+}
+
+.empty-cart-message {
+    text-align: center;
+    color: var(--secondary-color);
+    margin-top: 50px;
+    font-size: 1.1rem;
+}
+
+/* --- Crucial Styling for Individual Cart Items --- */
+.cart-item {
+    display: flex; /* Makes the cart item a flexible container */
+    align-items: flex-start; /* Align items to the top to allow stacking within the details section */
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--bg-light);
+    gap: 10px; /* Adds space between the direct children: image and details+actions container */
+}
+
+.cart-item img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border-radius: 5px;
+    mix-blend-mode: multiply;
+    flex-shrink: 0; /* Prevent image from shrinking */
+}
+
+/* New container for name, price, and the actions (quantity, remove) */
+.cart-item-details-and-actions {
+    display: flex;
+    flex-direction: column; /* Stack details (name/price) above actions (quantity/remove) */
+    flex-grow: 1; /* Allow this whole section to take available width */
+}
+
+.cart-item-info {
+    margin-bottom: 8px; /* Space between product info and action controls */
+}
+
+.cart-item-name {
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 2px; /* Small space between name and price */
+}
+
+.cart-item-price {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+}
+
+/* Container for quantity controls and remove button */
+.cart-item-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between quantity controls and remove button (X) */
+    justify-content: flex-start; /* Align actions to the left */
+}
+
+/* Base style for all quantity control divs (used for both product cards and cart items) */
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    overflow: hidden; /* Ensures borders are contained */
+    background-color: #fff; /* Ensure white background for the whole control */
+    height: 38px; /* Set a consistent height for the entire control */
+}
+
+/* Specific styles for quantity controls within cart item actions */
+/* .cart-item-quantity-controls inherits general quantity-controls styles; no specific rules needed here. */
+
+/* Styles for buttons within any quantity control */
+.quantity-controls button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+    -webkit-user-select: none; /* Prevent text selection */
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    flex-shrink: 0; /* Prevent buttons from shrinking */
+    height: 100%; /* Make buttons fill the height of the parent .quantity-controls */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quantity-controls button:hover {
+    background-color: #0056b3; /* Darker primary */
+}
+
+/* Styles for the quantity span within cart item controls */
+.cart-item-quantity-controls span {
+    padding: 8px 0; /* Match vertical padding of buttons */
+    font-weight: 600;
+    color: var(--text-dark);
+    min-width: 60px; /* Explicit width for consistent size */
+    text-align: center;
+    background-color: #fff; /* Explicit white background */
+    display: flex; /* Use flex to center content vertically/horizontally */
+    align-items: center;
+    justify-content: center;
+    height: 100%; /* Make span fill the height of the parent .quantity-controls */
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+/* Remove Item Button */
+.remove-item {
+    background-color: var(--danger-color);
+    color: white;
+    border: none;
+    width: 28px; /* Consistent size with quantity buttons for visual balance */
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s ease;
+    flex-shrink: 0; /* Prevent it from shrinking */
+}
+
+.remove-item:hover {
+    background-color: #c82333;
+}
+
+.cart-summary {
+    padding: 20px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.cart-summary span {
+    color: var(--primary-color);
+}
+
+.cart-checkout-btn {
+    width: calc(100% - 40px); /* Account for padding */
+    margin: 0 20px 20px;
+    padding: 15px;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cart-checkout-btn:hover {
+    background-color: #218838;
+}
+
+/* Notification (Toast) Styles */
+.notification {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px); /* Initially slightly above and hidden */
+    background-color: #333;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    opacity: 0; /* Start hidden */
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+    z-index: 3000;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.notification.success {
+    background-color: var(--accent-color); /* Green */
+}
+
+.notification.error {
+    background-color: var(--danger-color); /* Red */
+}
+
+.notification.warning {
+    background-color: #FFC107; /* Yellow */
+    color: var(--text-dark);
+}
+
+/* Mobile Menu Overlay and Sidebar */
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1500;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.mobile-menu-overlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mobile-menu-sidebar {
+    position: fixed;
+    top: 0;
+    left: -280px; /* Hidden by default */
+    width: 280px;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: 5px 0 15px rgba(0,0,0,0.1);
+    transition: left 0.4s ease-in-out;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+}
+
+.mobile-menu-sidebar.open {
+    left: 0;
+}
+
+.mobile-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.mobile-menu-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+.close-mobile-menu {
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--secondary-color);
+    transition: color 0.3s ease;
+}
+
+.close-mobile-menu:hover {
+    color: var(--danger-color);
+}
+
+.mobile-menu-sidebar ul {
+    padding: 20px;
+}
+
+.mobile-menu-sidebar ul li {
+    margin-bottom: 15px;
+}
+
+.mobile-menu-sidebar ul li a {
+    color: var(--text-dark);
+    font-size: 1.1rem;
+    font-weight: 500;
+    display: block;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    transition: color 0.3s ease;
+}
+
+.mobile-menu-sidebar ul li a:hover,
+.mobile-menu-sidebar ul li a.active {
+    background-color: #f0f0f0;
+    color:var(--primary-color);
+}
+
+/* --- Media Queries for Responsiveness --- */
+
+/* Tablets (Max 992px) */
+@media (max-width: 992px) {
+    .hero-section h1 {
+        font-size: 3rem;
+    }
+
+    .hero-section p {
+        font-size: 1rem;
+    }
+
+    .nav-menu {
+        display: none; /* Hide regular nav menu on smaller screens */
+    }
+
+    .nav-icons {
+        margin-left: auto; /* Push icons to the right */
+    }
+
+    .menu-toggle-icon {
+        display: block; /* Show hamburger icon */
+        margin-left: 20px;
+    }
+
+    .info-boxes {
+        flex-direction: column;
+        margin-top: -50px; /* Adjust overlap */
+        padding: 0 20px 50px;
+    }
+
+    .info-box {
+        min-width: unset;
+        width: 100%; /* Take full width */
+    }
+
+    .promo-grid {
+        grid-template-columns: 1fr; /* Stack promo blocks */
+    }
+
+    .promo-block {
+        padding: 40px;
+    }
+
+    .footer-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+}
+
+/* Mobile Devices (Max 768px) */
+@media (max-width: 768px) {
+    .header .container {
+        padding: 0 15px;
+    }
+
+    .logo {
+        font-size: 1.5rem;
+    }
+
+    .nav-icons i {
+        margin-left: 15px;
+    }
+
+    .hero-section {
+        padding: 80px 0;
+    }
+
+    .hero-section h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-section p {
+        font-size: 0.95rem;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .hero-buttons .btn {
+        width: 80%; /* Make buttons wider */
+        max-width: 250px;
+        margin: 0 auto;
+    }
+
+    .section-title {
+        font-size: 2rem;
+        margin-top: 50px;
+    }
+
+    .medicine-list {
+        grid-template-columns: 1fr; /* Single column layout for products */
+        padding: 0 15px 50px;
+    }
+
+    .medicine-card {
+        padding: 15px;
+    }
+
+    /* Quantity and action buttons on cards on smaller screens */
+    .quantity-container {
+        gap: 5px; /* Adjust gap on smaller screens */
+    }
+
+    .action-buttons {
+        flex-direction: column; /* Stack buttons on smaller screens */
+        gap: 8px;
+    }
+
+    .action-buttons button {
+        flex: unset; /* Remove flex-grow to allow explicit width */
+        width: 100%; /* Make buttons full width */
+        max-width: unset;
+    }
+
+    .testimonial-grid {
+        grid-template-columns: 1fr; /* Stack testimonials */
+    }
+
+    .promo-block {
+        padding: 30px;
+    }
+
+    .promo-block h3 {
+        font-size: 1.7rem;
+    }
+
+    .promo-block p {
+        font-size: 1rem;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr; /* Stack footer columns */
+        text-align: center;
+    }
+
+    .footer-col h4::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .social-icons {
+        justify-content: center;
+    }
+
+    .cart-sidebar {
+        width: 100%; /* Full width on small screens */
+        right: -100%;
+    }
+
+    .cart-sidebar.open {
+        right: 0;
+    }
+
+    .mobile-menu-sidebar {
+        width: 100%; /* Full width on small screens */
+        left: -100%;
+    }
+
+    .mobile-menu-sidebar.open {
+        left: 0;
+    }
+}
+
+/* Very Small Mobile Devices (Max 480px) */
+@media (max-width: 480px) {
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+
+    .hero-buttons .btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+
+    .info-box {
+        padding: 20px;
+    }
+
+    .info-box h3 {
+        font-size: 1.3rem;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+    .medicine-name {
+        font-size: 1.2rem;
+    }
+
+    .medicine-price {
+        font-size: 1rem;
+    }
+}

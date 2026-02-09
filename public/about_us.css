@@ -1,0 +1,354 @@
+
+.about-hero-section {
+    position: relative;
+    height: 350px; /* Adjust height as needed */
+    background-image: url('image/hero_1.jpg'); /* Placeholder image */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    text-align: center;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Dark overlay for text readability */
+}
+
+.hero-text {
+    position: relative; /* Ensure text is above overlay */
+    z-index: 1;
+}
+
+.hero-text h1 {
+    font-size: 4em;
+    font-weight: 700;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+/* General Section Styling */
+.section-padded {
+    padding: 60px 0;
+}
+
+.section-title {
+    font-size: 36px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 40px;
+    color: #007bff;
+}
+
+.section-subtitle {
+    font-size: 28px;
+    font-weight: 600;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+/* Content Blocks (How We Started, We Are Trusted Company) */
+.content-block {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    margin-bottom: 40px;
+    padding: 40px;
+}
+
+.grid-2-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.content-left, .content-right {
+    text-align: left;
+}
+
+.content-block p {
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.img-responsive {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    display: block; /* Remove extra space below image */
+}
+
+.video-placeholder {
+    position: relative;
+    width: 100%;
+    height: auto;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.video-placeholder img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 60px;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    z-index: 2;
+    transition: color 0.3s ease;
+}
+
+.play-icon:hover {
+    color: rgba(255, 255, 255, 1);
+}
+
+.we-are-trusted {
+    background-color: #fdfdfd;
+}
+
+/* Info Boxes Section */
+.info-boxes-section {
+    background-color: #e6f2ff; /* Light blue background */
+    padding: 60px 0;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.info-box-item {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.info-box-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+.info-box-item i {
+    font-size: 48px;
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+.info-box-item h3 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.info-box-item p {
+    font-size: 15px;
+    color: #777;
+}
+
+/* Team Section */
+.team-section {
+    background-color: #fff;
+    padding: 60px 0;
+    text-align: center;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+}
+
+.team-member-card {
+    background-color: #fdfdfd;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.team-member-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+.team-member-card img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 3px solid #007bff;
+}
+
+.team-member-card h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.team-member-card p {
+    font-size: 15px;
+    color: #777;
+}
+/* Responsive Adjustments */
+@media (max-width: 992px) { /* Tablets and smaller laptops */
+    .nav-menu {
+        display: none; /* Hide desktop nav */
+    }
+
+    .menu-toggle-icon {
+        display: block; /* Show mobile menu icon */
+    }
+
+    .header-content {
+        justify-content: space-between;
+    }
+
+    .nav-icons {
+        gap: 15px;
+    }
+
+    .hero-text h1 {
+        font-size: 3em;
+    }
+
+    .grid-2-col {
+        grid-template-columns: 1fr; /* Stack columns on smaller screens */
+    }
+
+    .reverse-on-mobile {
+        display: flex;
+        flex-direction: column-reverse; /* Reverse order for the "We Are Trusted" section */
+    }
+
+    .content-left, .content-right {
+        text-align: center;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr; /* Stack info boxes */
+    }
+
+    .team-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Adjust team card size */
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr; /* Stack footer columns */
+        text-align: center;
+    }
+
+    .footer-col h4::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .social-icons {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) { /* Smaller tablets and large phones */
+    .about-hero-section {
+        height: 250px;
+    }
+
+    .hero-text h1 {
+        font-size: 2.5em;
+    }
+
+    .section-title {
+        font-size: 30px;
+    }
+
+    .section-subtitle {
+        font-size: 24px;
+    }
+
+    .content-block {
+        padding: 30px;
+    }
+}
+
+@media (max-width: 480px) { /* Extra small devices / phones */
+    .logo {
+        font-size: 24px;
+    }
+
+    .nav-icons {
+        gap: 10px;
+        font-size: 18px;
+    }
+
+    .cart-sidebar {
+        width: 100%; /* Full width sidebar on very small screens */
+    }
+
+    .mobile-menu-sidebar {
+        width: 100%;
+        right: -100%;
+    }
+
+    .about-hero-section {
+        height: 200px;
+    }
+
+    .hero-text h1 {
+        font-size: 2em;
+    }
+
+    .section-padded {
+        padding: 40px 0;
+    }
+
+    .section-title {
+        font-size: 26px;
+        margin-bottom: 30px;
+    }
+
+    .section-subtitle {
+        font-size: 22px;
+    }
+
+    .content-block {
+        padding: 20px;
+        margin-bottom: 30px;
+    }
+
+    .info-box-item {
+        padding: 20px;
+    }
+
+    .team-member-card {
+        padding: 20px;
+    }
+}
