@@ -1,27 +1,23 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors');
 const session = require('express-session');
 const bcrypt = require('bcryptjs');
 const fs = require('fs');
 const path = require('path');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // --- Middleware ---
 
-// CORS (simple setup)
-app.use(cors());
-
-// Body Parser
+// Body parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Serve static frontend
+// Serve frontend from public folder
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
-// Session configuration
+// Session setup
 app.use(session({
     secret: 'pharmacy_secret_key_123',
     resave: false,
@@ -32,16 +28,16 @@ app.use(session({
     }
 }));
 
-// --- File Paths ---
+// --- File paths ---
 const productsFilePath = path.join(__dirname, 'data', 'products.json');
 const usersFilePath = path.join(__dirname, 'data', 'users.json');
 
-// --- Helper Functions ---
+// --- Helper functions ---
 function readJSONFile(filePath) {
     try {
         const data = fs.readFileSync(filePath, 'utf8');
         return JSON.parse(data);
-    } catch (error) {
+    } catch (err) {
         return [];
     }
 }
@@ -50,7 +46,7 @@ function writeJSONFile(filePath, data) {
     fs.writeFileSync(filePath, JSON.stringify(data, null, 4), 'utf8');
 }
 
-// --- Auth Middleware ---
+// --- Auth middleware ---
 function isAuthenticated(req, res, next) {
     if (req.session.userId) {
         next();
@@ -59,7 +55,7 @@ function isAuthenticated(req, res, next) {
     }
 }
 
-// --- Authentication Routes ---
+// --- Authentication routes ---
 
 app.post('/api/login', (req, res) => {
     const { username, password } = req.body;
@@ -88,7 +84,7 @@ app.get('/api/check-auth', (req, res) => {
     }
 });
 
-// --- Product Routes ---
+// --- Product routes ---
 
 // Get all products (public)
 app.get('/api/products', (req, res) => {
@@ -146,7 +142,7 @@ app.delete('/api/products/:id', isAuthenticated, (req, res) => {
     res.json({ message: 'Product deleted successfully' });
 });
 
-// --- Start Server ---
+// --- Start server ---
 app.listen(PORT, () => {
     console.log(`Server running at: http://localhost:${PORT}`);
     console.log(`Website: http://localhost:${PORT}`);
