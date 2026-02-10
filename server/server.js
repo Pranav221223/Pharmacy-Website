@@ -4,6 +4,7 @@ const session = require('express-session');
 const bcrypt = require('bcryptjs');
 const fs = require('fs');
 const path = require('path');
+const multer = require('multer');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -54,6 +55,30 @@ function isAuthenticated(req, res, next) {
         res.status(401).json({ message: 'Unauthorized. Please log in.' });
     }
 }
+
+// ================= IMAGE UPLOAD SETUP =================
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, path.join(__dirname, '..', 'public', 'image'));
+    },
+    filename: (req, file, cb) => {
+        const uniqueName = Date.now() + path.extname(file.originalname);
+        cb(null, uniqueName);
+    }
+});
+
+const upload = multer({ storage });
+
+// Upload product image
+app.post('/api/upload', isAuthenticated, upload.single('image'), (req, res) => {
+    if (!req.file) {
+        return res.status(400).json({ message: "No file uploaded" });
+    }
+
+    res.json({
+        imageUrl: `/image/${req.file.filename}`
+    });
+});
 
 // --- Authentication routes ---
 
@@ -108,7 +133,7 @@ app.post('/api/products', isAuthenticated, (req, res) => {
     products.push(newProduct);
     writeJSONFile(productsFilePath, products);
 
-    res.json({ message: 'Product added successfully' });
+    res.json({ message: 'Product added successfully', product: newProduct });
 });
 
 // Update product
@@ -125,7 +150,7 @@ app.put('/api/products/:id', isAuthenticated, (req, res) => {
     products[index] = { ...products[index], ...updatedData, id: productId };
     writeJSONFile(productsFilePath, products);
 
-    res.json({ message: 'Product updated successfully' });
+    res.json({ message: 'Product updated successfully', product: products[index] });
 });
 
 // Delete product
