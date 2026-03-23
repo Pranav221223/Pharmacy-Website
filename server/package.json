@@ -17,5 +17,7 @@
     "express": "^4.22.1",
     "express-session": "^1.19.0",
     "multer": "^2.0.2"
-  }
+  },
+  "devDependencies": {},
+  "type": "commonjs"
 }
