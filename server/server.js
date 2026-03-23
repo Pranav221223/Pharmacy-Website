@@ -1,5 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const session = require('express-session');
 const bcrypt = require('bcryptjs');
 const fs = require('fs');
@@ -10,22 +9,22 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // --- Middleware ---
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// Body parser
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-// Serve frontend from public folder
+// Serve frontend
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
-// Session setup
+// --- Session Setup (Improved) ---
 app.use(session({
-    secret: 'pharmacy_secret_key_123',
+    secret: process.env.SESSION_SECRET || 'pharmacy_secret_key',
     resave: false,
     saveUninitialized: false,
     cookie: {
-        maxAge: 1000 * 60 * 60 * 24, // 1 day
-        httpOnly: true
+        secure: false, // true only for HTTPS
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60 * 24,
+        sameSite: 'lax'
     }
 }));
 
@@ -33,34 +32,42 @@ app.use(session({
 const productsFilePath = path.join(__dirname, 'data', 'products.json');
 const usersFilePath = path.join(__dirname, 'data', 'users.json');
 
-// --- Helper functions ---
+// --- Helper Functions ---
 function readJSONFile(filePath) {
     try {
+        if (!fs.existsSync(filePath)) return [];
         const data = fs.readFileSync(filePath, 'utf8');
-        return JSON.parse(data);
+        return JSON.parse(data || '[]');
     } catch (err) {
+        console.error("Read error:", err);
         return [];
     }
 }
 
 function writeJSONFile(filePath, data) {
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 4), 'utf8');
-}
-
-// --- Auth middleware ---
-function isAuthenticated(req, res, next) {
-    if (req.session.userId) {
-        next();
-    } else {
-        res.status(401).json({ message: 'Unauthorized. Please log in.' });
+    try {
+        fs.writeFileSync(filePath, JSON.stringify(data, null, 4), 'utf8');
+    } catch (err) {
+        console.error("Write error:", err);
     }
 }
 
-// ================= IMAGE UPLOAD SETUP =================
+// --- Auth Middleware ---
+function isAuthenticated(req, res, next) {
+    if (req.session.userId) return next();
+    return res.status(401).json({ message: 'Unauthorized' });
+}
+
+// ================= IMAGE UPLOAD =================
+const uploadDir = path.join(__dirname, '..', 'public', 'image');
+
+// Ensure folder exists
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+}
+
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, path.join(__dirname, '..', 'public', 'image'));
-    },
+    destination: (req, file, cb) => cb(null, uploadDir),
     filename: (req, file, cb) => {
         const uniqueName = Date.now() + path.extname(file.originalname);
         cb(null, uniqueName);
@@ -69,7 +76,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// Upload product image
+// Upload image
 app.post('/api/upload', isAuthenticated, upload.single('image'), (req, res) => {
     if (!req.file) {
         return res.status(400).json({ message: "No file uploaded" });
@@ -80,44 +87,54 @@ app.post('/api/upload', isAuthenticated, upload.single('image'), (req, res) => {
     });
 });
 
-// --- Authentication routes ---
+// ================= AUTH =================
 
+// Login
 app.post('/api/login', (req, res) => {
     const { username, password } = req.body;
     const users = readJSONFile(usersFilePath);
+
     const user = users.find(u => u.username === username);
 
-    if (user && bcrypt.compareSync(password, user.passwordHash)) {
-        req.session.userId = user.username;
-        res.json({ message: 'Login successful', username: user.username });
-    } else {
-        res.status(401).json({ message: 'Invalid username or password' });
+    if (!user) {
+        return res.status(401).json({ message: 'Invalid credentials' });
     }
+
+    const isMatch = bcrypt.compareSync(password, user.passwordHash);
+
+    if (!isMatch) {
+        return res.status(401).json({ message: 'Invalid credentials' });
+    }
+
+    req.session.userId = user.username;
+
+    res.json({ message: 'Login successful', username: user.username });
 });
 
+// Logout
 app.post('/api/logout', isAuthenticated, (req, res) => {
     req.session.destroy(() => {
-        res.json({ message: 'Logged out successfully' });
+        res.json({ message: 'Logged out' });
     });
 });
 
+// Check auth
 app.get('/api/check-auth', (req, res) => {
-    if (req.session.userId) {
-        res.json({ authenticated: true, username: req.session.userId });
-    } else {
-        res.json({ authenticated: false });
-    }
+    res.json({
+        authenticated: !!req.session.userId,
+        username: req.session.userId || null
+    });
 });
 
-// --- Product routes ---
+// ================= PRODUCTS =================
 
-// Get all products (public)
+// Get all products
 app.get('/api/products', (req, res) => {
     const products = readJSONFile(productsFilePath);
     res.json(products);
 });
 
-// Add product (admin only)
+// Add product
 app.post('/api/products', isAuthenticated, (req, res) => {
     const newProduct = req.body;
     const products = readJSONFile(productsFilePath);
@@ -127,50 +144,53 @@ app.post('/api/products', isAuthenticated, (req, res) => {
     }
 
     if (products.some(p => p.id === newProduct.id)) {
-        return res.status(409).json({ message: 'Product ID already exists' });
+        return res.status(409).json({ message: 'Product already exists' });
     }
 
     products.push(newProduct);
     writeJSONFile(productsFilePath, products);
 
-    res.json({ message: 'Product added successfully', product: newProduct });
+    res.json({ message: 'Product added', product: newProduct });
 });
 
 // Update product
 app.put('/api/products/:id', isAuthenticated, (req, res) => {
-    const productId = req.params.id;
+    const id = req.params.id;
     const updatedData = req.body;
+
     let products = readJSONFile(productsFilePath);
 
-    const index = products.findIndex(p => p.id === productId);
+    const index = products.findIndex(p => p.id === id);
+
     if (index === -1) {
         return res.status(404).json({ message: 'Product not found' });
     }
 
-    products[index] = { ...products[index], ...updatedData, id: productId };
+    products[index] = { ...products[index], ...updatedData, id };
+
     writeJSONFile(productsFilePath, products);
 
-    res.json({ message: 'Product updated successfully', product: products[index] });
+    res.json({ message: 'Updated', product: products[index] });
 });
 
 // Delete product
 app.delete('/api/products/:id', isAuthenticated, (req, res) => {
-    const productId = req.params.id;
+    const id = req.params.id;
+
     let products = readJSONFile(productsFilePath);
 
-    const newProducts = products.filter(p => p.id !== productId);
-    if (newProducts.length === products.length) {
+    const filtered = products.filter(p => p.id !== id);
+
+    if (filtered.length === products.length) {
         return res.status(404).json({ message: 'Product not found' });
     }
 
-    writeJSONFile(productsFilePath, newProducts);
-    res.json({ message: 'Product deleted successfully' });
+    writeJSONFile(productsFilePath, filtered);
+
+    res.json({ message: 'Deleted successfully' });
 });
 
-// --- Start server ---
+// ================= START SERVER =================
 app.listen(PORT, () => {
-    console.log(`Server running at: http://localhost:${PORT}`);
-    console.log(`Website: http://localhost:${PORT}`);
-    console.log(`Admin panel: http://localhost:${PORT}/admin.html`);
-    console.log(`API: http://localhost:${PORT}/api/products`);
+    console.log(`Server running at http://localhost:${PORT}`);
 });
